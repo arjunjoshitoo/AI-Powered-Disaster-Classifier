@@ -15,11 +15,15 @@
 </div>
 <button type="submit" id="goToMap">Go To Map</button>
  <div id="input-section">
-  <label for="message" class="message1">What can I help with?</label><br>
+  <label for="message" class="message1">Where Are You Stuck?</label><br>
   <textarea id="message" rows="4" cols="50" placeholder="e.g. 'Help! I'm trapped in a flood'"></textarea><br><br>
   <button onclick="submitMessage()">Classify & Map</button>
 </div>
    <a id="home"><img src="../src/delete.png" class="cross"/></a>
+   <div id="loadingMessage">
+    <div class="spinner"></div>
+    <p>Fetching Location...</p>
+</div>
   <div id="map"></div>
 
 

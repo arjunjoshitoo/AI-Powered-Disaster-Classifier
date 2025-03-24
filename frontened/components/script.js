@@ -29,155 +29,97 @@ function findCityInText(text) {
     }
     return null;
 }
+function showLoading() {
+    document.getElementById("loadingMessage").style.display = "block";
+}
+
+
+function hideLoading() {
+    document.getElementById("loadingMessage").style.display = "none";
+}
+
 
 function submitMessage() {
-    const text = document.getElementById("message").value;
-    if (!text.trim()) return alert("Please enter a message.");
+    const text = document.getElementById("message").value.toLowerCase().trim();
+    if (!text) return alert("Please enter a message.");
+
     document.getElementById("input-section").style.display = "none";
     document.getElementById("map").style.display = "block";
-    
-    const city = findCityInText(text);
 
-    if (city && text.toLowerCase().includes("help")) {
-        const { lat, lon } = citiesDatabase[city];
+    const positiveKeywords = ["fine", "ok", "safe", "all good", "no issues", "doing well"];
+    const emergencyKeywords = ["help", "trapped", "earthquake", "flood", "need help", "emergency", "sos"];
 
-        const finalLat = lat + (Math.random() * 0.02 - 0.01);
-        const finalLon = lon + (Math.random() * 0.02 - 0.01);
-        
-        addMarker(finalLat, finalLon, text, true);
+    let isSOS = emergencyKeywords.some(word => text.includes(word));
+    let isSafe = positiveKeywords.some(word => text.includes(word));
+    showLoading();
+    if (navigator.geolocation) {
+        hideLoading();
+        navigator.geolocation.watchPosition((position) => {
+            const { latitude, longitude } = position.coords;
+            addMarker(latitude, longitude, text, isSOS, isSafe);
+        }, (error) => {
+            
+            console.error("Geolocation error:", error);
+        }, { enableHighAccuracy: true, timeout: 3000, maximumAge: 0 });
     } else {
-        mockClassifyMessage(text).then(response => {
-            const { sos, lat, lon, message } = response;
-            addMarker(lat, lon, message, sos);
-        });
+        alert("Geolocation is not supported by your browser.");
     }
+
     nameId.style.display = "none";
     goTo.style.display = "none";
     homeButton.style.display = "block";
+    hideLoading();
+    
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("map").style.display = "none";
     homeButton.style.display = "none";
+    nameId.style.display = "block";
+    goTo.style.display = "block";
+    
 });
 
-function addMarker(lat, lon, message, isSOS) {
-    map.eachLayer(function(layer) {
-        if (layer instanceof L.CircleMarker) {
-            map.removeLayer(layer);
-        }
-    });
+let userMarker;
+function addMarker(lat, lon, message, isSOS, isSafe) {
+    if (userMarker) {
+        map.removeLayer(userMarker);
+    }
 
-    const marker = L.circleMarker([lat, lon], {
-        color: isSOS ? 'red' : 'green',
+    let markerColor = isSOS ? 'red' : isSafe ? 'green' : 'blue';
+
+    userMarker = L.circleMarker([lat, lon], {
+        color: markerColor,
         radius: 8,
         fillOpacity: 1
     }).addTo(map);
 
-    marker.bindPopup(`<b>${isSOS ? "🚨 SOS ALERT" : "✅ Safe Message"}</b><br>${message}`);
-    
-    try {
-        const startPos = map.getCenter();
-        const startZoom = map.getZoom();
-        const endZoom = isSOS ? 20 : 12; 
-        const duration = 1500; 
-        const frames = 60;
-        const frameTime = duration / frames;
+    const statusMessage = isSOS ? "🚨 SOS ALERT" : isSafe ? "✅ Safe Status" : "📍 Location Marker";
+    userMarker.bindPopup(`<b>${statusMessage}</b><br>${message}`).openPopup();
 
-        let currentFrame = 0;
-
-        function easeInOutCubic(t) {
-            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        }
-
-        function animateFrame() {
-            if (currentFrame >= frames) {
-                map.setView([lat, lon], endZoom, { animate: false });
-                marker.openPopup();
-
-                if (isSOS) {
-                    setTimeout(() => {
-                        map.setView([lat, lon], 10, { animate: true });
-                    }, 50000);
-                }
-
-                return;
-            }
-
-            currentFrame++;
-            const progress = easeInOutCubic(currentFrame / frames);
-
-            const newLat = startPos.lat + (lat - startPos.lat) * progress;
-            const newLng = startPos.lng + (lon - startPos.lng) * progress;
-            const newZoom = startZoom + (endZoom - startZoom) * progress;
-
-            map.setView([newLat, newLng], newZoom, { animate: false });
-
-            setTimeout(animateFrame, frameTime);
-        }
-
-        animateFrame();
-    } catch (e) {
-        console.error("Animation failed, using fallback", e);
-        map.setView([lat, lon], isSOS ? 17 : 12);
-        marker.openPopup();
-
-        if (isSOS) {
-            setTimeout(() => {
-                map.setView([lat, lon], 10, { animate: true });
-            }, 10000);
-        }
-    }
-
-    marker.openPopup();
+    map.flyTo([lat, lon], isSOS ? 16 : 14)
 
     if (isSOS) {
-        blinkMarker(marker);
+        blinkMarker(userMarker);
     }
 }
-
 function blinkMarker(marker) {
     let visible = true;
     const blinkInterval = setInterval(() => {
         visible = !visible;
         marker.setStyle({ fillOpacity: visible ? 1 : 0 });
-    }, 500);
+    }, 500); 
 
-    setTimeout(() => clearInterval(blinkInterval), 20000);
+    setTimeout(() => clearInterval(blinkInterval), 20000); 
 }
-
-function mockClassifyMessage(text) {
-    return new Promise((resolve) => {
-        const keywords = ['help', 'trapped', 'earthquake', 'flood', 'need', 'emergency', 'sos'];
-        const sos = keywords.some(word => text.toLowerCase().includes(word));
-
-        const locations = [
-            { city: "Delhi", lat: 28.6139, lon: 77.2090 },
-            { city: "Mumbai", lat: 19.0760, lon: 72.8777 },
-            { city: "Bangalore", lat: 12.9716, lon: 77.5946 }
-        ];
-        const random = locations[Math.floor(Math.random() * locations.length)];
-
-        resolve({
-            sos,
-            message: text,
-            lat: random.lat + Math.random() * 0.05,
-            lon: random.lon + Math.random() * 0.05
-        });
-    });
-}
-let userMarker;
 
 function trackUserLocation() {
     if (!navigator.geolocation) {
-        
         return;
     }
-    
     navigator.geolocation.watchPosition(
         (position) => {
             const { latitude, longitude } = position.coords;
-            
             if (userMarker) {
                 userMarker.setLatLng([latitude, longitude]);
             } else {
@@ -187,12 +129,10 @@ function trackUserLocation() {
                     fillOpacity: 1
                 }).addTo(map).bindPopup("📍 You are here").openPopup();
             }
-            
             map.setView([latitude, longitude], 13);
         },
         (error) => {
             console.error("Error getting location:", error);
-            
         },
         { enableHighAccuracy: true, maximumAge: 0 }
     );
