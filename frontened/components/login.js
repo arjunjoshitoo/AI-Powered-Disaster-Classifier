@@ -1,6 +1,7 @@
+
 document.getElementById("login-form").addEventListener("submit", function(event) {
     event.preventDefault();
-    const username = document.getElementById("inputVal").value
+    const username = document.getElementById("inputVal").value.trim().toLowerCase();
     
 
     if (username) {
@@ -9,4 +10,5 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     } else {
         alert("Please enter a valid username and password.");
     }
+    
 });

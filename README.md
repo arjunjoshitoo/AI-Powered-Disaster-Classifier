@@ -48,4 +48,3 @@ User enters a message (e.g. “There’s a fire in our building. Help!”)
 Backend classifies the message and returns SOS status, confidence, and location
 
 Frontend displays a marker on the map with message details
-
