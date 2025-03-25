@@ -1,3 +1,4 @@
+
 document.getElementById("login-form").addEventListener("submit", function(event) {
     event.preventDefault();
     const username = document.getElementById("inputVal").value.trim().toLowerCase();
