@@ -1,0 +1,176 @@
+/* 🎨 Disaster Response Map Styles - Savant Edition */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1e1f23;
+    color: #ececf1;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #map {
+    height: 80vh;
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    margin-top: 80px;
+  }
+  
+  #message {
+    width: 60%;
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 2rem;
+    border: none;
+    background-color: #2e2e2e;
+    color: #e0e0e0;
+    box-shadow: 0 0 10px rgba(78, 78, 78, 0.3);
+    outline: none;
+    resize: vertical;
+    margin: 2em auto;
+    height: 10rem;
+  }
+  
+  #message:focus {
+    border: 1px solid #00e5ff;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
+  }
+  
+  .message1 {
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+    margin: 2em 0 1em;
+    display: block;
+  }
+  
+  button {
+    background: linear-gradient(135deg, #252850, #373b69);
+    color: #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+  
+  button:hover {
+    background: linear-gradient(135deg, #3b3f7a, #5054aa);
+    box-shadow: 0 0 18px rgba(91, 95, 152, 0.7);
+    transform: scale(1.05);
+  }
+  
+  button:active {
+    transform: scale(0.95);
+    background: linear-gradient(135deg, #1a1a2d, #2a2f50);
+  }
+  
+  .leaflet-popup-content {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+  }
+  
+  @keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+  }
+  
+  .sos-blink {
+    animation: blink 1s infinite;
+  }
+  
+  #input-section {
+    margin-top: 12em;
+  }
+  
+  #nameTag {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 25px 30px;
+    letter-spacing: 0.5rem;
+    border-bottom: 4px solid #00e5ff;
+    width: fit-content;
+    text-transform: uppercase;
+  }
+  
+  #goToMap {
+    position: absolute;
+    top: 30px;
+    right: 18px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(270deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffee, #000cff, #8a00ff, #ff00c8);
+    background-size: 400% 400%;
+    animation: rainbowBackground 5s ease infinite;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 999;
+  }
+  
+  @keyframes rainbowBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  #home {
+    position: absolute;
+    top: 65px;
+    right: 80px;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .cross {
+    height: 40px;
+    width: 40px;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  
+  .cross:hover {
+    transform: rotate(180deg) scale(1.2);
+    opacity: 0.5;
+  }
+  
+  #loadingMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 1100;
+    text-align: center;
+    display: none;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

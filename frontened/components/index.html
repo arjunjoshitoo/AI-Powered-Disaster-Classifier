@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌐 Disaster Response Map</title>
+
+  <!-- 🌍 Stylesheets -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- 👤 User Greeting -->
+  <div id="nameTag">
+    <h2 id="name"></h2>
+  </div>
+
+  <!-- 🧭 Map Launch Button -->
+  <button id="goToMap">Go To Map</button>
+
+  <!-- 📝 Input Section -->
+  <div id="input-section">
+    <label for="message" class="message1">Where Are You Stuck?</label><br>
+    <textarea id="message" rows="4" cols="50" placeholder="e.g. 'Help! I'm trapped in a flood'"></textarea><br><br>
+    <button onclick="submitMessage()">Classify & Map</button>
+  </div>
+
+  <!-- ❌ Return Button -->
+  <a id="home"><img src="../src/delete.png" class="cross" alt="Return" /></a>
+
+  <!-- ⏳ Loading Overlay -->
+  <div id="loadingMessage">
+    <div class="spinner"></div>
+    <p>Fetching Location...</p>
+  </div>
+
+  <!-- 🗺️ Map Container -->
+  <div id="map"></div>
+
+  <!-- 🚀 Scripts -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="./script.js"></script>
+
+  <!-- 🔐 Auth & Greeting -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = JSON.parse(localStorage.getItem("username"));
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        document.getElementById("name").innerText = `WELCOME ${user.toUpperCase()}`;
+      }
+    });
+  </script>
+</body>
+</html>
