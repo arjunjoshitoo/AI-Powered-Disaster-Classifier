@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup | RESQ-AI</title>
+  <link rel="stylesheet" href="signup.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <div class="header">
+        <div class="company-name" id="companyName"></div>
+        <div class="quote" id="quote">Your safety is our priority. We are here to help you in times of need.</div>
+      </div>  
+
+  <div class="container">
+    
+    <div class="signup-box">
+        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+            <img src="../src/99d9bbe1-587a-4a4f-82a4-d005a360ebff.png" alt="RESQ-AI Logo" style="width: 80px; height: auto; margin-right: 10px;">
+          </div>
+      <div class="signup-header">
+        <h2>Create Account</h2>
+        <p>Join ResQ-AI!</p>
+      </div>
+      <form id="signup-form">
+        <div class="input-box">
+          <span class="material-symbols-outlined icon">account_circle</span>
+          <input type="text" id="signup-username" required />
+          <label>Username</label>
+        </div>
+        <div class="input-box">
+          <span class="material-symbols-outlined icon">lock</span>
+          <input type="password" id="signup-password" required />
+          <label>Password</label>
+        </div>
+        <div class="input-box"> 
+          <span class="material-symbols-outlined icon">mail</span> 
+          <input type="email" id="signup-email" required /> 
+          <label>Email</label> </div>
+        <button type="submit" class="btn">Signup</button>
+        <div class="login-link">
+          Already have an account? <a href="login.html">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="./signup.js">
+    
+  </script>
+</body>
+</html>

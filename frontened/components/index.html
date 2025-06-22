@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResQ AI</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
+  <link rel="stylesheet" href="./style.css" />
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+ 
+</head>
+<body class="light-mode">   <!-- Default to Light Mode -->
+  
+ 
+<button type="submit" id="goToMap">Go To Map</button>
+<div id="input-section">
+ <label for="message" class="message1">Where Are You Stuck?</label><br>
+ <textarea id="message" rows="4" cols="50" placeholder="e.g. 'Help! I'm trapped in a flood'"></textarea><br><br>
+ <button onclick="submitMessage()">SEND HELP !!!</button>
+</div>
+  <a id="home"><img src="../src/delete.png" class="cross"/></a>
+  <div id="loadingMessage">
+   <div class="spinner"></div>
+   <p>Fetching Location...</p>
+</div>
+ <div id="map"></div>
+   
+ <div class="top-ui">
+  <div id="hamburgerMenu" class="hamburger">
+    <span></span><span></span><span></span>
+   
+  </div>
+  <h4 id="right-tag">RESQ-AI</h4>
+</div>
+  <div id="sidebar">
+    
+    <div class="sidebar-header">
+      <img src="../src/99d9bbe1-587a-4a4f-82a4-d005a360ebff.png" alt="RESQ-AI Logo" class="sidebar-logo" />
+      <span class="sidebar-title" id="names"> </span>
+      <a href="#" id="closeSidebar"><span class="material-symbols-outlined">
+        close
+        </span></a>
+    </div>
+    <hr class="sidebar-divider">
+    <ul class="sidebar-nav">
+      <li><a href="#"><span class="material-symbols-outlined logo">
+        home
+        </span>Dashboard</a></li>
+      <li><a href="#"><span class="material-symbols-outlined logo">
+        contact_emergency
+        </span>Emergency Contacts</a></li>
+      <li><a href="#"><span class="material-symbols-outlined logo">
+        settings
+        </span>Settings</a></li>
+     
+    </ul>
+    <hr class="sidebar-divider">
+   
+    <div style="margin: 2rem 2rem 4rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+      <a href="login.html" onclick="localStorage.removeItem('currentUser')" style="color: #ff4b4b; font-size: larger; font-weight: bold; text-decoration: none;">
+        <span class="material-symbols-outlined logimg">logout</span>Logout
+      </a>
+      <a id="themeToggle" class="theme-toggle"><span class="material-symbols-outlined">
+        dark_mode
+        </span></a>
+    </div>
+      
+  </div>
+ 
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
+  <script src="./script.js">
+    
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      if (!user) {
+          window.location.href = "login.html";
+          window.location.replace("login.html"); // Redirect to login page if no user is found
+      } else {
+          document.getElementById("names").innerText = `WELCOME ${user.username}`; // Display username
+      }
+
+  });
+  document.getElementById("themeToggle").addEventListener("click", function() {
+    document.body.classList.toggle("dark-mode");
+    document.body.classList.toggle("light-mode");
+
+    const messageBox = document.getElementById("message");
+    const helpBtn = document.querySelector("#input-section button");
+    const toggle = document.querySelector(".theme-toggle");
+    if (document.body.classList.contains("dark-mode")) {
+        messageBox.style.backgroundColor = "#3f3e3e";
+        messageBox.style.color = "#E0E0E0";
+        helpBtn.style.color = "white";
+        toggle.style.color = "white";
+        
+    } else {
+        messageBox.style.backgroundColor = "#ffffff";
+        messageBox.style.color = "#202123";
+        helpBtn.style.color = "#FF9933";
+        toggle.style.color = "#202123"
+    }
+});
+ 
+</script>
+
+</body>
+</html>

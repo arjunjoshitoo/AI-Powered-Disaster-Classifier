@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | RESQ-AI</title>
+  <link rel="stylesheet" href="login.css" />
+
+  <!-- Google Material Symbols (Only one import is needed) -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+  <div class="header">
+    <div class="company-name" id="companyName"></div>
+    <div class="quote" id="quote">Your safety is our priority. We are here to help you in times of need.</div>
+  </div>
+  <div class="container">
+   
+    <div class="login-box">
+      <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+        <img src="../src/99d9bbe1-587a-4a4f-82a4-d005a360ebff.png" alt="RESQ-AI Logo" style="width: 80px; height: auto; margin-right: 10px;">
+      </div>
+      <div class="login-header">
+        <h2>Welcome Back!</h2>
+        <p>Please log in to continue</p>
+      </div>
+      <form id="login-form" action="index.html" method="POST">
+        <div class="input-box">
+          <span class="material-symbols-outlined icon">account_circle</span>
+          <input type="text" required id="inputVal"/>
+          <label>Username</label>
+        </div>
+        <div class="input-box">
+          <span class="material-symbols-outlined icon">lock</span>
+          <input type="password" id="inputVal2" required />
+          <label>Password</label>
+        </div>
+        <div class="input-box"> 
+          <span class="material-symbols-outlined icon">mail</span> 
+          <input type="email" id="inputVal3" required /> 
+          <label>Email</label> </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox" />Remember me</label>
+          <a href="#">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <div class="register">
+          Don't have an account? <a href="signup.html">Register</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>
