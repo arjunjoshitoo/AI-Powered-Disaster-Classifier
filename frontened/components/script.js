@@ -94,7 +94,7 @@ function submitMessage() {
 }
 
 function sendSOSAlert(message, lat, lon) {
-   
+    const phoneInput = document.getElementById("phone").value.trim(); 
    fetch("http://localhost:5000/send_sos", {
   method: "POST",
   headers: {
@@ -102,7 +102,7 @@ function sendSOSAlert(message, lat, lon) {
   },
   body: JSON.stringify({
     message: `SOS ALERT! ${message} Location: (${lat}, ${lon})`,
-    recipient: "+919322973213"
+    recipient: phoneInput 
   })
 })
 
