@@ -102,7 +102,7 @@ function sendSOSAlert(message, lat, lon) {
   },
   body: JSON.stringify({
     message: `SOS ALERT! ${message} Location: (${lat}, ${lon})`,
-    recipient: phoneInput 
+    recipient: "recipent" 
   })
 })
 
