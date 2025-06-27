@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./style.css" />
  
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
  
 </head>
 <body class="light-mode">   <!-- Default to Light Mode -->
@@ -18,7 +19,19 @@
 <div id="input-section">
  <label for="message" class="message1">Where Are You Stuck?</label><br>
  <textarea id="message" rows="4" cols="50" placeholder="e.g. 'Help! I'm trapped in a flood'"></textarea><br><br>
- <button onclick="submitMessage()">SEND HELP !!!</button>
+ <a type="button" id="mike" onclick="startVoiceInput()">🎙️</a>
+ <div class="impButton">
+  <div class="number-input">
+     <span class="material-symbols-outlined call">
+call
+</span>
+  <input type="text" id="phone" name="phone" placeholder="Submit a valid contact number to request help." />
+         </div>
+         <a type="button" id="autoFill"><img src="../src/OIP.png" class="helpImg"/></a>
+ <button class="sendhelp" onclick="submitMessage()">SEND HELP !!!</button>
+ 
+ </div>
+ 
 </div>
   <a id="home"><img src="../src/delete.png" class="cross"/></a>
   <div id="loadingMessage">
@@ -59,17 +72,21 @@
     <hr class="sidebar-divider">
    
     <div style="margin: 2rem 2rem 4rem 2rem; display: flex; justify-content: space-between; align-items: center;">
-      <a href="login.html" onclick="localStorage.removeItem('currentUser')" style="color: #ff4b4b; font-size: larger; font-weight: bold; text-decoration: none;">
+      
+      <a href="login.html" onclick="localStorage.removeItem('currentUser')" style="color: #ff4b4b; font-size: larger; font-weight: bold; text-decoration: none;" class="logout-btns">
         <span class="material-symbols-outlined logimg">logout</span>Logout
       </a>
+      
+     
       <a id="themeToggle" class="theme-toggle"><span class="material-symbols-outlined">
         dark_mode
         </span></a>
-    </div>
-      
+    </div>      
   </div>
+  <div id="floatingTips" class="floating-tips">🚨 Always stay calm in an emergency.</div>
  
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   
   <script src="./script.js">
     
@@ -107,6 +124,5 @@
 });
  
 </script>
-
 </body>
 </html>

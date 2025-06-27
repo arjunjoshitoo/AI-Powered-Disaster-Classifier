@@ -15,8 +15,10 @@ const goTo = document.getElementById("goToMap");
 const homeButton = document.getElementById("home");
 const map = L.map('map').setView([20.5937, 78.9629], 5);
 const headers = document.getElementById("right-tag");
-let userMarker = null;  // ✅ Defined globally
 
+const autoFill = document.getElementById("autoFill");
+const helpFill = ["Help me!", "I am in trouble", "Please help, i am in problem", "Help needed, urgently"];
+let userMarker = null;  // ✅ Defined globally
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("map").style.display = "none";  
     homeButton.style.display = "none";  
@@ -56,8 +58,7 @@ function submitMessage() {
     })
     .then(response => response.json())
     .then(data => {
-        hideLoading();
-
+        hideLoading();  
         let isSOS = data.prediction === 1;
         let isSafe = data.prediction === 0;
 
@@ -93,16 +94,18 @@ function submitMessage() {
 }
 
 function sendSOSAlert(message, lat, lon) {
-    fetch("http://localhost:5000/send_sos", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            message: `SOS ALERT! ${message} Location: (${lat}, ${lon})`,
-            recipient: "+9198XXXXXXXX"  
-        })
-    })
+    const phoneInput = document.getElementById("phone").value.trim(); 
+   fetch("http://localhost:5000/send_sos", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    message: `SOS ALERT! ${message} Location: (${lat}, ${lon})`,
+    recipient: phoneInput 
+  })
+})
+
     .then(response => response.json())
     .then(data => console.log("SOS Sent:", data))
     .catch(error => console.error("Error sending SOS:", error));
@@ -175,8 +178,50 @@ homeButton.addEventListener('click', () => {
 
 document.getElementById("hamburgerMenu").addEventListener("click", function () {
     document.getElementById("sidebar").classList.add("active");
+   
 });
 
 document.getElementById("closeSidebar").addEventListener("click", function () {
     document.getElementById("sidebar").classList.remove("active");
 });
+
+autoFill.addEventListener('click', () => {
+    const random = Math.floor(Math.random() * 4);
+    document.getElementById("message").value = helpFill[random];
+})
+function startVoiceInput() {
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+recognition.start();
+
+recognition.onresult = function(event) {
+const speechResult = event.results[0][0].transcript;
+document.getElementById("message").value = speechResult;
+};
+
+recognition.onerror = function(event) {
+console.error("Speech recognition error:", event.error);
+};
+}
+const tips = [
+"🚨 Always stay calm in an emergency.",
+"📍 Share your location quickly.",
+"🔋 Keep your phone charged.",
+"🆘 Use the SOS button only when truly needed.",
+"📢 Voice commands can help send help faster."
+];
+let tipIndex = 0;
+setInterval(() => {
+tipIndex = (tipIndex + 1) % tips.length;
+const tipElement = document.getElementById("floatingTips");
+tipElement.classList.remove("animate__animated", "animate__fadeInUp");
+void tipElement.offsetWidth; // force reflow
+tipElement.textContent = tips[tipIndex];
+tipElement.classList.add("animate__animated", "animate__fadeInUp");
+}, 10000);
+
+
+

@@ -131,6 +131,7 @@ button:active {
     background-size: 400% 400%;
     animation: rainbowBackground 2s ease infinite;
 }
+
 @keyframes rainbowBackground{
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -477,3 +478,78 @@ button:hover {
   color: grey;
 
 }
+.impButton{
+ display: flex;
+ justify-content: space-evenly;
+ 
+}
+#phone{
+  color: #56575a;
+  background-color: #f5f5f6;
+  border: 1px solid rgb(185, 184, 184);
+  font-weight: bold;
+  font-size: medium;
+  font-family:Arial, Helvetica, sans-serif; 
+  border-radius: 10px;
+  min-width: 355px;
+  padding: 12px;
+  height: 1.2em;
+  transition: transform 0.3s ease;
+  
+}
+#phone:hover{
+ box-shadow: 4px 3px 7px 1px rgba(131, 130, 130, 0.999);
+transform: translate(-3px, -3px);
+
+}
+.call{
+ position: relative;
+ top: 8px;
+ left: 6px;
+  border-radius: 10px;
+  border: 1px solid rgb(185, 184, 184);
+  padding: 10px;
+  margin-top: 10px;
+}
+.sendhelp:hover{
+  box-shadow: 0 0 20px 4px rgba(0, 229, 255, 0.8), 0 0 40px 6px rgba(0, 229, 255, 0.4);
+}
+#autoFill{
+ margin-top: 2px;
+
+}
+.helpImg{
+  height: 4em;
+  width: 6em;
+}
+#mike{
+  cursor: pointer;
+  height: 2em;
+  width: 2em;
+  font-size: 25px;
+  position: relative;
+  bottom: 100px;
+  left: 29%;
+}
+.floating-tips {
+position: fixed;
+bottom: 20px;
+left: 20px;
+background: hsl(282, 83%, 65%);
+color: white;
+padding: 12px 20px;
+border-radius: 8px;
+font-weight: bold;
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+animation: floatIn 1s ease, floatBounce 3s infinite;
+z-index: 999;
+}
+@keyframes floatIn {
+from { transform: translateY(200px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes floatBounce {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-20px); }
+} 

@@ -39,7 +39,8 @@ def send_sos_alert():
         logging.debug("CORS preflight request received for /send_sos")
         return jsonify({"message": "CORS preflight successful"}), 200
 
-    data = request.get_json(force=True, silent=True)
+    data = request.get_json(force=True)
+    print("📦 Received JSON:", data)
     
     if not data:
         logging.error("Missing JSON data in request")
